@@ -54,15 +54,15 @@ int main() {
         grid[blocks[j].second][blocks[j].first]='#';
 
         memset(visited,0,sizeof(visited));
+        pq = priority_queue<node,vector<node>,greater<node> >();
         pq.push(node(0,0,0));
-        pq.empty();
 
         bool found = false;
         while(pq.size()>0) {
             node cur = pq.top();
             pq.pop();
             if (cur.r == R-1 && cur.c==C-1) {
-                cout << cur.distance << endl;
+                //cout << cur.distance << endl;
                 found = true;
                 break;
             }
