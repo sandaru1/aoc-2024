@@ -10,6 +10,19 @@ using namespace std;
 #define XSIZE 101
 #define YSIZE 103
 
+int count(char grid[XSIZE][YSIZE],int x,int y,int d) {
+    if (x<0 || y<0 || x>=XSIZE || y>=YSIZE) return 0;
+    if (grid[x][y]=='1') {
+        int cnt = 1;
+        if (d & 1) cnt += count(grid,x-1,y,1);
+        if (d & 2) cnt += count(grid,x+1,y,2);
+        if (d & 4) cnt += count(grid,x,y+1,4);
+        if (d & 8) cnt += count(grid,x,y-1,8);
+        return cnt;
+    }
+    return 0;
+}
+
 int main() {
     
     vector<pair<int,int> > locations;
@@ -49,27 +62,7 @@ int main() {
         for(int x=0;x<XSIZE;x++) {
             for(int y=0;y<YSIZE;y++) {
                 if (grid[x][y]=='.') continue;
-                int cnt = 0;
-                int y2 = 0;
-                while(y2+y>=0) {
-                    if (grid[x][y2+y]=='1') cnt++;
-                    y2--;
-                }
-                y2 = 0;
-                while(y2+y<YSIZE) {
-                    if (grid[x][y2+y]=='1') cnt++;
-                    y2++;
-                }
-                int x2 = 0;
-                while(x2+x>=0) {
-                    if (grid[x2+x][y]=='1') cnt++;
-                    x2--;
-                }
-                x2 = 0;
-                while(x2+x<XSIZE) {
-                    if (grid[x2+x][y]=='1') cnt++;
-                    x2++;
-                }
+                int cnt = count(grid,x,y,1 | 2 | 4 | 8);
                 best = max(best,cnt);
             }
         }
