@@ -73,7 +73,26 @@ int main() {
         }
     }
 
+    long X = 0;
+    long Y = 0;
     long ans = 0;
+
+    for(int i=0;i<45;i++) { 
+        string wire = string("x")+string(i<10?"0":"")+to_string(i);
+        cout << wire << " " << wires[wire] << endl;
+        if (wires[wire]==1) {
+            long x = (1L << i);
+            X = X | x;
+        }
+        wire = string("y")+string(i<10?"0":"")+to_string(i);
+        cout << wire << " " << wires[wire] << endl;
+        if (wires[wire]==1) {
+            long x = (1L << i);
+            Y = Y | x;
+        }
+
+    }
+
     for(int i=0;i<100;i++) {
         string wire = string("z")+string(i<10?"0":"")+to_string(i);
         cout << wire << " " << wires[wire] << endl;
@@ -84,6 +103,7 @@ int main() {
         if (wire==max_wire) break;
     }
 
+    cout << X << endl << Y << endl;
     cout << ans << endl;
 
 //    cout << wires["z00"] << wires["z01"] << wires["z02"] << endl;
